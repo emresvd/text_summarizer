@@ -12,10 +12,10 @@ def summarize(text: str, per: float = 0.1) -> dict:
     for word in doc:
         if word.text.lower() not in list(STOP_WORDS):
             if word.text.lower() not in punctuation:
-                if word.text not in word_fs.keys():
-                    word_fs[word.text] = 1
-                else:
+                if word.text in word_fs.keys():
                     word_fs[word.text] += 1
+                else:
+                    word_fs[word.text] = 1
 
     max_f = max(word_fs.values())
 
