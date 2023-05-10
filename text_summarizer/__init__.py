@@ -7,8 +7,8 @@ from heapq import nlargest
 def summarize(text: str, per: float = 0.1) -> dict:
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(text)
-
     word_fs = {}
+
     for word in doc:
         if word.text.lower() not in list(STOP_WORDS):
             if word.text.lower() not in punctuation:
@@ -21,10 +21,11 @@ def summarize(text: str, per: float = 0.1) -> dict:
 
     for word in word_fs.keys():
         word_fs[word] = word_fs[word] / max_f
-    word_fs = dict(sorted(word_fs.items(), key=lambda x: x[1], reverse=True))
 
+    word_fs = dict(sorted(word_fs.items(), key=lambda x: x[1], reverse=True))
     sentence_tokens = [sent for sent in doc.sents]
     sentence_scores = {}
+
     for sent in sentence_tokens:
         for word in sent:
             if word.text.lower() in word_fs.keys():
@@ -32,9 +33,9 @@ def summarize(text: str, per: float = 0.1) -> dict:
                     sentence_scores[sent] = word_fs[word.text.lower()]
                 else:
                     sentence_scores[sent] += word_fs[word.text.lower()]
+
     sentence_scores = dict(
         sorted(sentence_scores.items(), key=lambda x: x[1], reverse=True))
-
     select_length = int(len(sentence_tokens) * per)
 
     summary = nlargest(select_length, sentence_scores, key=sentence_scores.get)
