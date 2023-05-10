@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-with open("requirements.txt", "r") as fh:
-    requirements = fh.read().splitlines()
+with open("requirements.txt", "r") as f:
+    requirements = f.read().splitlines()
 
 setup(
     name='text_summarizer',
