@@ -29,10 +29,10 @@ def summarize(text: str, per: float = 0.1) -> dict:
     for sent in sentence_tokens:
         for word in sent:
             if word.text.lower() in word_fs.keys():
-                if sent not in sentence_scores.keys():
-                    sentence_scores[sent] = word_fs[word.text.lower()]
-                else:
+                if sent in sentence_scores.keys():
                     sentence_scores[sent] += word_fs[word.text.lower()]
+                else:
+                    sentence_scores[sent] = word_fs[word.text.lower()]
 
     sentence_scores = dict(
         sorted(sentence_scores.items(), key=lambda x: x[1], reverse=True))
