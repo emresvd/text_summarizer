@@ -9,7 +9,6 @@ setup(
     description='',
     long_description="",
     author='emresvd',
-    license='MIT',
     url='https://github.com/emresvd/text_summarizer',
     packages=find_packages(),
     install_requires=requirements,
